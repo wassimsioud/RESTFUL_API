@@ -7,7 +7,20 @@ app.get('/', (req, res) => {
     res.json("Registre de personnes! Choisissez le bon routage!")
 })
 // Récupérer toutes les personnes
-
+app.get('/personnes', (req, res) => {
+    db.all("SELECT * FROM personnes", [], (err, rows) => {
+        if (err) {
+            res.status(400).json({
+                "error": err.message
+            });
+            return;
+        }
+        res.json({
+            "message": "success",
+            "data": rows
+        });
+    });
+});
 
 
 // Récupérer une personne par ID
